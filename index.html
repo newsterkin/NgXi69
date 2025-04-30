@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsterkin - Forum Edukasi Kolaboratif</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --accent: #e74c3c;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --gray: #95a5a6;
+            --highlight: #f1c40f;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Open Sans', 'Segoe UI', sans-serif;
+        }
+        
+        @font-face {
+            font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: 400;
+            src: url(https://fonts.gstatic.com/s/opensans/v35/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4gaVc.woff2) format('woff2');
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: var(--dark);
+            line-height: 1.7;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+        
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            line-height: 1;
+            color: var(--dark);
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .logo-text span {
+            font-size: 0.8rem;
+            color: var(--gray);
+            display: block;
+            letter-spacing: 1.5px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav ul li a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+            font-size: 0.95rem;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.9), rgba(46, 204, 113, 0.8)), url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80') no-repeat center center/cover;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            margin-bottom: 60px;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+        
+        .hero-content {
+            color: white;
+            max-width: 700px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero-content h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            font-weight: 800;
+        }
+        
+        .hero-content p {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            margin-left: 15px;
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background-color: white;
+            color: var(--primary);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 70px 0;
+            background-color: white;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            font-size: 2.2rem;
+            color: var(--dark);
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        .section-subtitle {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .feature-desc {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+        
+        /* Forum Categories */
+        .categories {
+            padding: 70px 0;
+            background-color: #f8fafc;
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .category-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .category-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .category-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        
+        .category-body {
+            padding: 20px;
+        }
+        
+        .category-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .category-desc {
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            color: var(--dark);
+        }
+        
+        .category-btn {
+            display: block;
+            text-align: center;
+            padding: 10px;
+            background-color: var(--light);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Popular Discussions */
+        .discussions {
+            padding: 70px 0;
+            background-color: white;
+        }
+        
+        .discussions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .discussion-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .discussion-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .discussion-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .discussion-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .discussion-author {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .discussion-date {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .discussion-body {
+            padding: 20px;
+        }
+        
+        .discussion-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .discussion-excerpt {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        
+        .discussion-footer {
+            padding: 15px 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .discussion-meta {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .discussion-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+        
+        .cta p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 70px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+        
+        .footer-contact p {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.8;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .footer-social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-social a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero {
+                height: 450px;
+            }
+            
+            .hero-content h2 {
+                font-size: 2.4rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                height: 400px;
+                clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            }
+            
+            .hero-content h2 {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                display: block;
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                height: 350px;
+            }
+            
+            .hero-content h2 {
+                font-size: 1.8rem;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.5rem;
+            }
+            
+            .cta h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">N</div>
+                <div class="logo-text">
+                    <h1>Newsterkin</h1>
+                    <span>Forum Edukasi Kolaboratif</span>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Beranda</a></li>
+                    <li><a href="#">Forum</a></li>
+                    <li><a href="#">Kategori</a></li>
+                    <li><a href="#">Event</a></li>
+                    <li><a href="#">Tentang</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Temukan Komunitas Pembelajaran yang Mendukung Perkembangan Anda</h2>
+                <p>Bergabunglah dengan ribuan anggota lainnya untuk berdiskusi, berbagi pengetahuan, dan mengembangkan keterampilan bersama.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn">Bergabung Sekarang</a>
+                    <a href="#" class="btn btn-outline">Pelajari Lebih Lanjut</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Kenapa Memilih Newsterkin?</h2>
+                <p class="section-subtitle">Platform kami dirancang khusus untuk memfasilitasi pembelajaran kolaboratif yang efektif dan menyenangkan</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="feature-title">Komunitas Aktif</h3>
+                    <p class="feature-desc">Bergabung dengan ribuan anggota yang selalu siap berdiskusi dan membantu menjawab pertanyaan Anda.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="feature-title">Pembelajaran Kolaboratif</h3>
+                    <p class="feature-desc">Belajar bersama melalui diskusi, proyek kolaboratif, dan pertukaran pengetahuan.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3 class="feature-title">Expert Verified</h3>
+                    <p class="feature-desc">Jawaban diverifikasi oleh ahli di bidangnya untuk memastikan keakuratan informasi.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Event Edukasi</h3>
+                    <p class="feature-desc">Webinar, workshop, dan kompetisi reguler untuk meningkatkan keterampilan Anda.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 class="feature-title">Sistem Reputasi</h3>
+                    <p class="feature-desc">Dapatkan poin dan penghargaan atas kontribusi Anda dalam komunitas.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Akses Mobile</h3>
+                    <p class="feature-desc">Akses forum kapan saja, di mana saja melalui aplikasi mobile kami.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Categories Section -->
+    <section class="categories">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Kategori Populer</h2>
+                <p class="section-subtitle">Temukan topik yang sesuai dengan minat dan kebutuhan pembelajaran Anda</p>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="category-title">Pemrograman</h3>
+                    </div>
+                    <div class="category-body">
+                        <div class="category-stats">
+                            <span>1.2K Diskusi</span>
+                            <span>5.4K Anggota</span>
+                        </div>
+                        <p class="category-desc">Diskusi tentang berbagai bahasa pemrograman, framework, dan pengembangan software.</p>
+                        <a href="#" class="category-btn">Lihat Forum</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="category-title">Bisnis & Ekonomi</h3>
+                    </div>
+                    <div class="category-body">
+                        <div class="category-stats">
+                            <span>850 Diskusi</span>
+                            <span>3.2K Anggota</span>
+                        </div>
+                        <p class="category-desc">Strategi bisnis, analisis pasar, dan diskusi tentang perkembangan ekonomi terkini.</p>
+                        <a href="#" class="category-btn">Lihat Forum</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-microscope"></i>
+                        </div>
+                        <h3 class="category-title">Sains & Teknologi</h3>
+                    </div>
+                    <div class="category-body">
+                        <div class="category-stats">
+                            <span>720 Diskusi</span>
+                            <span>2.8K Anggota</span>
+                        </div>
+                        <p class="category-desc">Penemuan terbaru, penelitian, dan inovasi di bidang sains dan teknologi.</p>
+                        <a href="#" class="category-btn">Lihat Forum</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-header">
+                        <div class="category-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h3 class="category-title">Desain & Kreatif</h3>
+                    </div>
+                    <div class="category-body">
+                        <div class="category-stats">
+                            <span>650 Diskusi</span>
+                            <span>2.5K Anggota</span>
+                        </div>
+                        <p class="category-desc">Tips desain, tutorial kreatif, dan diskusi tentang industri kreatif.</p>
+                        <a href="#" class="category-btn">Lihat Forum</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Discussions Section -->
+    <section class="discussions">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Diskusi Populer</h2>
+                <p class="section-subtitle">Ikuti diskusi terhangat dari komunitas kami</p>
+            </div>
+            <div class="discussions-grid">
+                <div class="discussion-card">
+                    <div class="discussion-header">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="User" class="discussion-avatar">
+                        <div>
+                            <div class="discussion-author">Sarah Wijaya</div>
+                            <div class="discussion-date">2 jam yang lalu</div>
+                        </div>
+                    </div>
+                    <div class="discussion-body">
+                        <h3 class="discussion-title">Bagaimana memulai belajar Python untuk pemula di tahun 2023?</h3>
+                        <p class="discussion-excerpt">Saya baru ingin memulai belajar pemrograman dengan Python. Apa saja langkah-langkah yang harus saya pelajari pertama kali? Adakah rekomendasi sumber belajar yang cocok untuk pemula...</p>
+                    </div>
+                    <div class="discussion-footer">
+                        <div class="discussion-meta">
+                            <span><i class="fas fa-comment"></i> 24</span>
+                            <span><i class="fas fa-eye"></i> 156</span>
+                        </div>
+                        <span>#Pemrograman</span>
+                    </div>
+                </div>
+                <div class="discussion-card">
+                    <div class="discussion-header">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="User" class="discussion-avatar">
+                        <div>
+                            <div class="discussion-author">Budi Santoso</div>
+                            <div class="discussion-date">5 jam yang lalu</div>
+                        </div>
+                    </div>
+                    <div class="discussion-body">
+                        <h3 class="discussion-title">Strategi efektif untuk meningkatkan engagement di media sosial</h3>
+                        <p class="discussion-excerpt">Saya memiliki usaha kecil dan ingin meningkatkan engagement di Instagram. Apa saja strategi yang terbukti efektif untuk meningkatkan interaksi dengan followers...</p>
+                    </div>
+                    <div class="discussion-footer">
+                        <div class="discussion-meta">
+                            <span><i class="fas fa-comment"></i> 18</span>
+                            <span><i class="fas fa-eye"></i> 98</span>
+                        </div>
+                        <span>#Bisnis</span>
+                    </div>
+                </div>
+                <div class="discussion-card">
+                    <div class="discussion-header">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User" class="discussion-avatar">
+                        <div>
+                            <div class="discussion-author">Dian Pratama</div>
+                            <div class="discussion-date">1 hari yang lalu</div>
+                        </div>
+                    </div>
+                    <div class="discussion-body">
+                        <h3 class="discussion-title">Review kursus online UI/UX Design terbaik tahun ini</h3>
+                        <p class="discussion-excerpt">Saya ingin beralih karir ke bidang UI/UX Design. Ada yang sudah mencoba kursus online di platform seperti Coursera, Udemy, atau Skillshare? Mana yang paling direkomendasikan...</p>
+                    </div>
+                    <div class="discussion-footer">
+                        <div class="discussion-meta">
+                            <span><i class="fas fa-comment"></i> 32</span>
+                            <span><i class="fas fa-eye"></i> 210</span>
+                        </div>
+                        <span>#Desain</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Siap Bergabung dengan Komunitas Pembelajar Kami?</h2>
+            <p>Daftar sekarang dan dapatkan akses ke ribuan diskusi bermanfaat, event eksklusif, dan jaringan profesional.</p>
+            <a href="#" class="btn">Daftar Gratis Sekarang</a>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Tentang Newsterkin</h3>
+                    <div class="footer-about">
+                        <p>Newsterkin adalah platform forum edukasi kolaboratif yang menghubungkan pembelajar dari berbagai latar belakang untuk saling berbagi pengetahuan.</p>
+                        <div class="footer-social">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Link Cepat</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Beranda</a></li>
+                        <li><a href="#">Forum</a></li>
+                        <li><a href="#">Kategori</a></li>
+                        <li><a href="#">Event</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Kebijakan</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Syarat & Ketentuan</a></li>
+                        <li><a href="#">Kebijakan Privasi</a></li>
+                        <li><a href="#">Pedoman Komunitas</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Kontak Kami</h3>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-map-marker-alt"></i> Jl. Pendidikan No. 123, Jakarta</p>
+                        <p><i class="fas fa-phone"></i> (021) 1234-5678</p>
+                        <p><i class="fas fa-envelope"></i> hello@newsterkin.com</p>
+                        <p><i class="fas fa-clock"></i> Senin-Jumat: 09:00 - 17:00</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Newsterkin. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            const nav = document.querySelector('nav ul');
+            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        });
+        
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const featureCards = document.querySelectorAll('.feature-card');
+            const categoryCards = document.querySelectorAll('.category-card');
+            const discussionCards = document.querySelectorAll('.discussion-card');
+            
+            // Add animation delay to elements
+            featureCards.forEach((card, index) => {
+                card.style.transitionDelay = `${index * 0.1}s`;
+            });
+            
+            categoryCards.forEach((card, index) => {
+                card.style.transitionDelay = `${index * 0.1}s`;
+            });
+            
+            discussionCards.forEach((card, index) => {
+                card.style.transitionDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>
